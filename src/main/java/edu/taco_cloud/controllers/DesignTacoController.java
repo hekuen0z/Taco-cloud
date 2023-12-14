@@ -3,9 +3,11 @@ package edu.taco_cloud.controllers;
 import edu.taco_cloud.models.Ingredient;
 import edu.taco_cloud.models.Taco;
 import edu.taco_cloud.models.TacoOrder;
+import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Arrays;
@@ -92,11 +94,17 @@ public class DesignTacoController {
      * Обрабатывает запрос на создание пользовательского тако
      * @param taco - созданное тако
      * @param tacoOrder - заказ текущего пользователя
+     * @param errors - содержит ошибки валидации при заполнении форм
      * @return - возвращает представление текущих заказов пользователя
      */
     @PostMapping
-    public String processTaco(Taco taco,
+    public String processTaco(@Valid Taco taco,
+                              Errors errors,
                               @ModelAttribute TacoOrder tacoOrder) {
+        if(errors.hasErrors()) {
+            return "designPage";
+        }
+
         tacoOrder.addTaco(taco);
         log.info("Processing taco: {}", taco);
 

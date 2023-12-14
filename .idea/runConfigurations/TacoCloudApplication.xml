@@ -1,0 +1,16 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="TacoCloudApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
+    <option name="FRAME_DEACTIVATION_UPDATE_POLICY" value="UpdateClassesAndResources" />
+    <module name="taco-cloud" />
+    <option name="SPRING_BOOT_MAIN_CLASS" value="edu.taco_cloud.TacoCloudApplication" />
+    <extension name="coverage">
+      <pattern>
+        <option name="PATTERN" value="edu.taco_cloud.*" />
+        <option name="ENABLED" value="true" />
+      </pattern>
+    </extension>
+    <method v="2">
+      <option name="Make" enabled="true" />
+    </method>
+  </configuration>
+</component>
