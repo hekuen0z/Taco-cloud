@@ -1,4 +1,4 @@
-package vesennyaya;
+package edu.taco_cloud;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

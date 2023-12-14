@@ -1,4 +1,4 @@
-package vesennyaya.controllers;
+package edu.taco_cloud.controllers;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;

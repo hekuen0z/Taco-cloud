@@ -1,4 +1,4 @@
-package vesennyaya.models;
+package edu.taco_cloud.models;
 
 import lombok.Data;
 
