@@ -6,10 +6,7 @@ import edu.taco_cloud.models.TacoOrder;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Arrays;
 import java.util.List;
@@ -89,5 +86,20 @@ public class DesignTacoController {
     @GetMapping
     public String showDesignForm() {
         return "designPage";
+    }
+
+    /**
+     * Обрабатывает запрос на создание пользовательского тако
+     * @param taco - созданное тако
+     * @param tacoOrder - заказ текущего пользователя
+     * @return - возвращает представление текущих заказов пользователя
+     */
+    @PostMapping
+    public String processTaco(Taco taco,
+                              @ModelAttribute TacoOrder tacoOrder) {
+        tacoOrder.addTaco(taco);
+        log.info("Processing taco: {}", taco);
+
+        return "redirect:/orders/current";
     }
 }
