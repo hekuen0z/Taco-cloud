@@ -10,6 +10,7 @@ spring:
         format_sql: true
         hbm2ddl:
           auto: none
+        globally_quoted_identifiers: true
   sql:
     init:
       platform: h2
