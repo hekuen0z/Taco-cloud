@@ -1,24 +1,24 @@
 package edu.taco_cloud.models;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
-import jakarta.persistence.Id;
-import lombok.*;
+import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import org.springframework.data.cassandra.core.mapping.PrimaryKey;
+import org.springframework.data.cassandra.core.mapping.Table;
 
 /**
  * Класс для хранения типов доступных ингредиентов по категориям
  */
 @Data
-@Entity(name = "ingredient")
+@Table("ingredients")
 @AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PRIVATE, force = true)
 public class Ingredient {
 
-    @Id
+    @PrimaryKey
     private String id;
     private String name;
-    @Enumerated(EnumType.STRING)
     private Type type;
 
     public enum Type {

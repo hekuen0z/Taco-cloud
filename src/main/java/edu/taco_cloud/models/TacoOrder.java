@@ -1,26 +1,33 @@
 package edu.taco_cloud.models;
 
-import jakarta.persistence.*;
-import jakarta.validation.constraints.*;
+import com.datastax.oss.driver.api.core.uuid.Uuids;
+import edu.taco_cloud.models.UDT.TacoUDT;
+import jakarta.validation.constraints.Digits;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Pattern;
+import jakarta.validation.constraints.Size;
 import lombok.Data;
 import org.hibernate.validator.constraints.CreditCardNumber;
+import org.springframework.data.cassandra.core.mapping.Column;
+import org.springframework.data.cassandra.core.mapping.PrimaryKey;
+import org.springframework.data.cassandra.core.mapping.Table;
 
 import java.io.Serial;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.UUID;
 
 @Data
-@Entity
+@Table("orders")
 public class TacoOrder implements Serializable {
 
     @Serial
     private static final long serialVersionUID = 1L;
 
-    @Id
-    @GeneratedValue(generator = "ID_GENERATOR")
-    private Long id;
+    @PrimaryKey
+    private UUID id = Uuids.timeBased();
 
     private Date placedAt = new Date();
 
@@ -43,17 +50,17 @@ public class TacoOrder implements Serializable {
     private String ccNumber;
 
     @Pattern(regexp = "^(0[1-9]1[0-2])(/)([2-9][0-9])$",
-    message = "Must be formatted MM/YY")
+            message = "Must be formatted MM/YY")
     private String ccExpiration;
 
     @Size(min = 3, max = 3, message = "Invalid CVV")
     @Digits(integer = 3, fraction = 0, message = "Invalid CVV")
     private String ccCVV;
 
-    @OneToMany(cascade = CascadeType.ALL)
-    private List<Taco> tacos = new ArrayList<>();
+    @Column("tacos")
+    private List<TacoUDT> tacos = new ArrayList<>();
 
-    public void addTaco(Taco taco) {
+    public void addTaco(TacoUDT taco) {
         this.tacos.add(taco);
     }
 }

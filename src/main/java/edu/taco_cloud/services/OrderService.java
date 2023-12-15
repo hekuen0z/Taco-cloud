@@ -5,7 +5,7 @@ import edu.taco_cloud.repositories.OrderRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.NoSuchElementException;
+import java.util.UUID;
 
 @Service
 public class OrderService {
@@ -21,7 +21,7 @@ public class OrderService {
         return orderRepo.findAll();
     }
 
-    public TacoOrder findById(Long id) {
+    public TacoOrder findById(UUID id) {
         return orderRepo.findById(id).orElseThrow();
     }
 

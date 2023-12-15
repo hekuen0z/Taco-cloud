@@ -4,6 +4,7 @@ import edu.taco_cloud.models.Ingredient;
 import edu.taco_cloud.models.Taco;
 import edu.taco_cloud.models.TacoOrder;
 import edu.taco_cloud.services.IngredientService;
+import edu.taco_cloud.utilities.TacoToTacoUDTConverter;
 import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,12 +14,10 @@ import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
-import static edu.taco_cloud.models.Ingredient.*;
-import static java.util.stream.Collectors.*;
-import static org.aspectj.apache.bcel.Constants.types;
+import static edu.taco_cloud.models.Ingredient.Type;
+import static java.util.stream.Collectors.toList;
 
 @Slf4j
 @Controller
@@ -37,6 +36,7 @@ public class DesignTacoController {
 
     /**
      * Метод фильтрует ингредиенты по типам.
+     *
      * @param model - список ингредиентов для передачи в вызов showDesignForm()
      * @see DesignTacoController#showDesignForm()
      */
@@ -44,14 +44,12 @@ public class DesignTacoController {
     public void addIngredientsToModel(final Model model) {
         Iterable<Ingredient> ingredientIterable = ingredientService.findAll();
         List<Ingredient> ingredients = new ArrayList<>();
-        for(Ingredient i : ingredientIterable) {
+        for (Ingredient i : ingredientIterable) {
             ingredients.add(i);
         }
 
-        System.out.println(ingredientIterable.toString());
-
         Type[] types = Type.values();
-        for(Type type : types) {
+        for (Type type : types) {
             model.addAttribute(type.toString().toLowerCase(),
                     filterByType(ingredients, type));
         }
@@ -59,8 +57,9 @@ public class DesignTacoController {
 
     /**
      * Функция разделяет общую коллекцию по типам.
+     *
      * @param ingredients - список всех ингредиентов
-     * @param type - тип ингредиента
+     * @param type        - тип ингредиента
      * @return - коллекцию ингредиентов одного типа
      */
     private Iterable<Ingredient> filterByType(List<Ingredient> ingredients, Type type) {
@@ -72,6 +71,7 @@ public class DesignTacoController {
 
     /**
      * Создание объекта TacoOrder
+     *
      * @return - объект класса TacoOrder
      */
     @ModelAttribute(name = "tacoOrder")
@@ -81,6 +81,7 @@ public class DesignTacoController {
 
     /**
      * Создание объекта Taco
+     *
      * @return - объект класса Taco
      */
     @ModelAttribute(name = "taco")
@@ -98,20 +99,21 @@ public class DesignTacoController {
 
     /**
      * Обрабатывает запрос на создание пользовательского тако
-     * @param taco - созданное тако
+     *
+     * @param taco      - созданное тако
      * @param tacoOrder - заказ текущего пользователя
-     * @param errors - содержит ошибки валидации при заполнении форм
+     * @param errors    - содержит ошибки валидации при заполнении форм
      * @return - возвращает представление текущих заказов пользователя
      */
     @PostMapping
     public String processTaco(@Valid Taco taco,
                               Errors errors,
                               @ModelAttribute TacoOrder tacoOrder) {
-        if(errors.hasErrors()) {
+        if (errors.hasErrors()) {
             return "designPage";
         }
 
-        tacoOrder.addTaco(taco);
+        tacoOrder.addTaco(TacoToTacoUDTConverter.convertTacoToTacoUDT(taco));
         log.info("Processing taco: {}", taco);
 
         return "redirect:/orders/current";
