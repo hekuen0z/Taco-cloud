@@ -21,7 +21,7 @@ public class IngredientService {
 
     public Ingredient findById(String id) {
         System.out.println("id type: " + id);
-        return ingredientRepo.findByIdIgnoreCase(id).orElseThrow();
+        return ingredientRepo.findById(id).orElseThrow();
     }
 
     public Ingredient save(Ingredient ingredient) {

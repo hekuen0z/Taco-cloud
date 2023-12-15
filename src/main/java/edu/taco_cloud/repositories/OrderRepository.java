@@ -9,7 +9,7 @@ import java.util.List;
 
 @Repository
 public interface OrderRepository
-        extends CrudRepository<TacoOrder, Long> {
+        extends CrudRepository<TacoOrder, String> {
 
     List<TacoOrder> findByDeliveryZip(String deliveryZip);
 

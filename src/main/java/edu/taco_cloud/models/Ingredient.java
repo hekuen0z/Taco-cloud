@@ -5,12 +5,13 @@ import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
 import jakarta.persistence.Id;
 import lombok.*;
+import org.springframework.data.mongodb.core.mapping.Document;
 
 /**
  * Класс для хранения типов доступных ингредиентов по категориям
  */
 @Data
-@Entity(name = "ingredient")
+@Document(collection = "ingredient")
 @AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PRIVATE, force = true)
 public class Ingredient {

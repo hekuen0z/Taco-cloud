@@ -21,7 +21,7 @@ public class OrderService {
         return orderRepo.findAll();
     }
 
-    public TacoOrder findById(Long id) {
+    public TacoOrder findById(String id) {
         return orderRepo.findById(id).orElseThrow();
     }
 

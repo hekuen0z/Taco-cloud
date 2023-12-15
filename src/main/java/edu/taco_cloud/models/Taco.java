@@ -11,13 +11,12 @@ import lombok.Data;
 import java.util.Date;
 import java.util.List;
 
+/**
+ * Класс Taco сохраняется как составляющие агрегата TacoOrder,
+ * поэтому ему не сообщаются аннотации @Id & @Document
+ */
 @Data
-@Entity
 public class Taco {
-
-    @Id
-    @GeneratedValue(generator = "ID_GENERATOR")
-    private Long id;
 
     private Date createdAt = new Date();
 
@@ -26,6 +25,9 @@ public class Taco {
     private String name;
 
     @Size(min = 1, message = "You must choose at least 1 ingredient")
-    @ManyToMany
     private List<Ingredient> ingredients;
+
+    public void addIngredient(Ingredient ingredient) {
+        this.ingredients.add(ingredient);
+    }
 }
