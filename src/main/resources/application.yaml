@@ -24,3 +24,15 @@ spring:
   #          scope:
   #            - email
   #            - public_profile
+logging:
+  file:
+    path: /var/logs
+    file: TacoCloud.log
+  level:
+    root: WARN
+    org:
+      springframework:
+        security: DEBUG
+
+taco:
+  orders: 10

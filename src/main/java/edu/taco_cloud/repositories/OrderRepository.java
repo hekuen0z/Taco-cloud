@@ -1,6 +1,8 @@
 package edu.taco_cloud.repositories;
 
 import edu.taco_cloud.models.TacoOrder;
+import edu.taco_cloud.models.User;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
@@ -12,6 +14,8 @@ public interface OrderRepository
         extends CrudRepository<TacoOrder, Long> {
 
     List<TacoOrder> findByDeliveryZip(String deliveryZip);
+
+    List<TacoOrder> findAllByUserOrderByPlacedAtDesc(User user, Pageable pageable);
 
     /**
      * Метод, делающий выборку по двум предикатам (условиям)
