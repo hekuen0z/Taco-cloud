@@ -5,6 +5,7 @@ import edu.taco_cloud.repositories.UserRepository;
 import edu.taco_cloud.services.UserDetailsService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.annotation.authentication.configuration.EnableGlobalAuthentication;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -19,6 +20,7 @@ import java.util.Arrays;
 import java.util.List;
 
 @Configuration
+@EnableGlobalAuthentication
 public class SecurityConfig {
 
     /**
