@@ -1,8 +1,10 @@
 package edu.taco_cloud.controllers;
 
 import edu.taco_cloud.models.TacoOrder;
+import edu.taco_cloud.services.OrderService;
 import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
@@ -13,6 +15,13 @@ import org.springframework.web.bind.support.SessionStatus;
 @RequestMapping("/orders")
 @SessionAttributes("tacoOrder")
 public class OrderController {
+
+    private final OrderService orderService;
+
+    @Autowired
+    public OrderController(OrderService orderService) {
+        this.orderService = orderService;
+    }
 
     /**
      * Метод для обработки заказа пользователя
@@ -39,6 +48,7 @@ public class OrderController {
         }
 
         log.info("Order submitted: {}", order);
+        orderService.save(order);
         sessionStatus.setComplete();
 
         return "redirect:/";

@@ -1,13 +1,25 @@
 package edu.taco_cloud.models;
 
-import lombok.Data;
+import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
+import jakarta.persistence.Id;
+import lombok.*;
 
+/**
+ * Класс для хранения типов доступных ингредиентов по категориям
+ */
 @Data
+@Entity(name = "ingredient")
+@AllArgsConstructor
+@NoArgsConstructor(access = AccessLevel.PRIVATE, force = true)
 public class Ingredient {
 
-    private final String id;
-    private final String name;
-    private final Type type;
+    @Id
+    private String id;
+    private String name;
+    @Enumerated(EnumType.STRING)
+    private Type type;
 
     public enum Type {
         WRAP,

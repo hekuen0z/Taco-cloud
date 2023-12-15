@@ -3,18 +3,22 @@ package edu.taco_cloud.controllers;
 import edu.taco_cloud.models.Ingredient;
 import edu.taco_cloud.models.Taco;
 import edu.taco_cloud.models.TacoOrder;
+import edu.taco_cloud.services.IngredientService;
 import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Arrays;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 import static edu.taco_cloud.models.Ingredient.*;
 import static java.util.stream.Collectors.*;
+import static org.aspectj.apache.bcel.Constants.types;
 
 @Slf4j
 @Controller
@@ -24,6 +28,13 @@ import static java.util.stream.Collectors.*;
 @SessionAttributes("tacoOrder")
 public class DesignTacoController {
 
+    private final IngredientService ingredientService;
+
+    @Autowired
+    public DesignTacoController(IngredientService ingredientService) {
+        this.ingredientService = ingredientService;
+    }
+
     /**
      * Метод фильтрует ингредиенты по типам.
      * @param model - список ингредиентов для передачи в вызов showDesignForm()
@@ -31,18 +42,13 @@ public class DesignTacoController {
      */
     @ModelAttribute
     public void addIngredientsToModel(final Model model) {
-        List<Ingredient> ingredients = Arrays.asList(
-                new Ingredient("FLPI", "Flour pita", Type.WRAP),
-                new Ingredient("COPI", "Corn pita", Type.WRAP),
-                new Ingredient("GRBF", "Ground Beef", Type.PROTEIN),
-                new Ingredient("CARN", "Carnitas", Type.PROTEIN),
-                new Ingredient("TMTO", "Diced Tomatoes", Type.VEGGIES),
-                new Ingredient("LETC", "Lettuce", Type.VEGGIES),
-                new Ingredient("CHED", "Cheddar", Type.CHEESE),
-                new Ingredient("JACK", "Monterrey Jack", Type.CHEESE),
-                new Ingredient("SLSA", "Salsa", Type.SAUCE),
-                new Ingredient("SRCR", "Sour Cream", Type.SAUCE)
-        );
+        Iterable<Ingredient> ingredientIterable = ingredientService.findAll();
+        List<Ingredient> ingredients = new ArrayList<>();
+        for(Ingredient i : ingredientIterable) {
+            ingredients.add(i);
+        }
+
+        System.out.println(ingredientIterable.toString());
 
         Type[] types = Type.values();
         for(Type type : types) {

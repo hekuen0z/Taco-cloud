@@ -1,11 +1,10 @@
 package edu.taco_cloud.utilities;
 
 import edu.taco_cloud.models.Ingredient;
+import edu.taco_cloud.services.IngredientService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Component;
-
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * Класс-конвертер преобразует id ингредиентов, получаемых из формы,
@@ -17,23 +16,16 @@ import java.util.Map;
 @Component
 public class IngredientByIdConverter implements Converter<String, Ingredient> {
 
-    private final Map<String, Ingredient> ingredientMap = new HashMap<>();
+    private final IngredientService ingredientService;
 
-    public IngredientByIdConverter() {
-        ingredientMap.put("FLPI", new Ingredient("FLPI", "Flour pita", Ingredient.Type.WRAP));
-        ingredientMap.put("COPI", new Ingredient("COPI", "Corn pita", Ingredient.Type.WRAP));
-        ingredientMap.put("GRBF", new Ingredient("GRBF", "Ground Beef", Ingredient.Type.PROTEIN));
-        ingredientMap.put("CARN", new Ingredient("CARN", "Carnitas", Ingredient.Type.PROTEIN));
-        ingredientMap.put("TMTO", new Ingredient("TMTO", "Diced Tomatoes", Ingredient.Type.VEGGIES));
-        ingredientMap.put("LETC", new Ingredient("LETC", "Lettuce", Ingredient.Type.VEGGIES));
-        ingredientMap.put("CHED", new Ingredient("CHED", "Cheddar", Ingredient.Type.CHEESE));
-        ingredientMap.put("JACK", new Ingredient("JACK", "Monterrey Jack", Ingredient.Type.CHEESE));
-        ingredientMap.put("SLSA", new Ingredient("SLSA", "Salsa", Ingredient.Type.SAUCE));
-        ingredientMap.put("SRCR", new Ingredient("SRCR", "Sour Cream", Ingredient.Type.SAUCE));
+    @Autowired
+    public IngredientByIdConverter(IngredientService ingredientService) {
+        this.ingredientService = ingredientService;
     }
 
     @Override
     public Ingredient convert(String id) {
-        return ingredientMap.get(id);
+        return ingredientService.findById(id);
     }
+
 }
