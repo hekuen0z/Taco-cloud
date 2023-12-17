@@ -11,6 +11,10 @@ spring:
         hbm2ddl:
           auto: none
         #globally_quoted_identifiers: true
+  #Определение базового пути для REST API
+  data:
+    rest:
+      base-path: /data-api
   sql:
     init:
       platform: h2
