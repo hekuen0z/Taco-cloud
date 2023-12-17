@@ -48,8 +48,6 @@ public class DesignTacoController {
             ingredients.add(i);
         }
 
-        System.out.println(ingredientIterable.toString());
-
         Type[] types = Type.values();
         for(Type type : types) {
             model.addAttribute(type.toString().toLowerCase(),

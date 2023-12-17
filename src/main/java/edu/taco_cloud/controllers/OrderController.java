@@ -78,7 +78,7 @@ public class OrderController {
         return "orderList";
         }
 
-        public void setPageSize(int pageSize) {
-            this.pageSize = pageSize;
-        }
+    public void setPageSize(int pageSize) {
+        this.pageSize = pageSize;
+    }
 }
