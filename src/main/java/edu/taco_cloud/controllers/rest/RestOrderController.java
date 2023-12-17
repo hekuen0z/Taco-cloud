@@ -2,9 +2,13 @@ package edu.taco_cloud.controllers.rest;
 
 import edu.taco_cloud.models.TacoOrder;
 import edu.taco_cloud.services.OrderService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
+@Slf4j
 @RestController
 @RequestMapping(path = "/api/orders", produces = "applications/json")
 @CrossOrigin(origins = "http://localhost:8080")
@@ -67,5 +71,13 @@ public class RestOrderController {
         return orderService.save(order);
     }
 
-
+    @DeleteMapping("/{orderId}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void deleteOrder(@PathVariable("orderId") Long orderId) {
+        try {
+            orderService.deleteById(orderId);
+        } catch (EmptyResultDataAccessException e) {
+            log.error(e.getMessage());
+        }
+    }
 }

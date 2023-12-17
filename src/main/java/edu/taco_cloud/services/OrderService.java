@@ -35,4 +35,8 @@ public class OrderService {
     public List<TacoOrder> findAllByUserDesc(User user, Pageable pageable) {
         return orderRepo.findAllByUserOrderByPlacedAtDesc(user, pageable);
     }
+
+    public void deleteById(Long id) {
+        orderRepo.deleteById(id);
+    }
 }
