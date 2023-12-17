@@ -1,0 +1,9 @@
+{
+  "properties": [
+    {
+      "name": "taco.orders",
+      "type": "java.lang.Integer",
+
+      "description": "Integer page size for taco.orders."
+  }
+] }
