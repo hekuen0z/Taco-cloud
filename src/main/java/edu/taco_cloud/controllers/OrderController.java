@@ -68,7 +68,7 @@ public class OrderController {
     }
 
     @GetMapping("/all")
-    public String ordersForusers(
+    public String ordersForUsers(
             @AuthenticationPrincipal User user, Model model) {
         Pageable pageable = PageRequest.of(0, pageSize);
 
@@ -81,4 +81,5 @@ public class OrderController {
     public void setPageSize(int pageSize) {
         this.pageSize = pageSize;
     }
+
 }

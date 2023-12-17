@@ -19,7 +19,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @WebMvcTest(DesignTacoController.class)
-class DesignTacoControllerTest {
+class DesignRestTacoControllerTest {
     @Autowired
     MockMvc mockMvc;
 

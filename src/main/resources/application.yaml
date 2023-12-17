@@ -10,7 +10,7 @@ spring:
         format_sql: true
         hbm2ddl:
           auto: none
-        globally_quoted_identifiers: true
+        #globally_quoted_identifiers: true
   sql:
     init:
       platform: h2
@@ -29,10 +29,10 @@ logging:
     path: /var/logs
     file: TacoCloud.log
   level:
-    root: WARN
+    root: INFO
     org:
       springframework:
-        security: DEBUG
+        security: INFO
 
 taco:
   orders: 10
