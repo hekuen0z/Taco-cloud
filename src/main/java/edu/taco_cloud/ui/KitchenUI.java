@@ -5,7 +5,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class KitchenUI {
 
-    public void display(Object o) {
+    public void displayOrder(Object o) {
         System.out.println(o.toString());
     }
 }

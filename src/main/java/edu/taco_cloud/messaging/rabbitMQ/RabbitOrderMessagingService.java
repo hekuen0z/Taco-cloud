@@ -1,5 +1,6 @@
-package edu.taco_cloud.messaging;
+package edu.taco_cloud.messaging.rabbitMQ;
 
+import edu.taco_cloud.messaging.OrderMessagingService;
 import edu.taco_cloud.models.TacoOrder;
 import org.springframework.amqp.AmqpException;
 import org.springframework.amqp.core.Message;
@@ -12,7 +13,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class RabbitOrderMessagingService
-        implements OrderMessagingService  {
+        implements OrderMessagingService {
 
     private RabbitTemplate rabbitTemplate;
 

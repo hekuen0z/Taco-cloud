@@ -1,4 +1,4 @@
-package edu.taco_cloud.messaging;
+package edu.taco_cloud.messaging.rabbitMQ;
 
 import org.springframework.amqp.support.converter.Jackson2JsonMessageConverter;
 import org.springframework.context.annotation.Bean;
