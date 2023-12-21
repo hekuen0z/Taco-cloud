@@ -27,4 +27,8 @@ public class IngredientService {
     public Ingredient save(Ingredient ingredient) {
         return ingredientRepo.save(ingredient);
     }
+
+    public void deleteById(String ingId) {
+        ingredientRepo.deleteById(ingId);
+    }
 }

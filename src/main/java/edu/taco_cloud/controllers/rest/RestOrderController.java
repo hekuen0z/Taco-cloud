@@ -1,5 +1,6 @@
 package edu.taco_cloud.controllers.rest;
 
+import edu.taco_cloud.messaging.OrderMessagingService;
 import edu.taco_cloud.models.TacoOrder;
 import edu.taco_cloud.services.OrderService;
 import lombok.extern.slf4j.Slf4j;
@@ -15,10 +16,12 @@ import org.springframework.web.bind.annotation.*;
 public class RestOrderController {
 
     private final OrderService orderService;
+    private final OrderMessagingService messagingService;
 
     @Autowired
-    public RestOrderController(OrderService orderService) {
+    public RestOrderController(OrderService orderService, OrderMessagingService messagingService) {
         this.orderService = orderService;
+        this.messagingService = messagingService;
     }
 
     /**
@@ -79,5 +82,12 @@ public class RestOrderController {
         } catch (EmptyResultDataAccessException e) {
             log.error(e.getMessage());
         }
+    }
+
+    @PostMapping(consumes = "application/json")
+    @ResponseStatus(HttpStatus.CREATED)
+    public TacoOrder postOrder(@RequestBody TacoOrder tacoOrder) {
+        messagingService.convertAndSendOrder(tacoOrder);
+        return orderService.save(tacoOrder);
     }
 }
