@@ -5,6 +5,7 @@ import edu.taco_cloud.models.TacoOrder;
 import edu.taco_cloud.services.OrderService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -19,7 +20,7 @@ public class RestOrderController {
     private final OrderMessagingService messagingService;
 
     @Autowired
-    public RestOrderController(OrderService orderService, OrderMessagingService messagingService) {
+    public RestOrderController(OrderService orderService, @Qualifier("kafkaOrderMessagingService") OrderMessagingService messagingService) {
         this.orderService = orderService;
         this.messagingService = messagingService;
     }
